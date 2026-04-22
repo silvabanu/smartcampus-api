@@ -1,0 +1,160 @@
+{
+  "info": {
+    "_postman_id": "7f4e5f3a-4d95-4c90-9ea2-0b5cb4df27e0",
+    "name": "Smart Campus API",
+    "description": "Postman collection for testing all Smart Campus REST API endpoints.\n\nIf you get 404, update only the baseUrl variable.\nExamples:\n- http://localhost:8080/smartcampus-api/api/v1\n- http://localhost:8080/smartcampus-api-1.0-SNAPSHOT/api/v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Discovery - GET /api/v1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "Rooms - POST /rooms (Create Room)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"{{roomId}}\",\n  \"name\": \"Library Quiet Study\",\n  \"capacity\": 120\n}"
+        },
+        "url": "{{baseUrl}}/rooms"
+      }
+    },
+    {
+      "name": "Rooms - GET /rooms (List Rooms)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/rooms"
+      }
+    },
+    {
+      "name": "Rooms - GET /rooms/{roomId}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/rooms/{{roomId}}"
+      }
+    },
+    {
+      "name": "Rooms - POST /rooms (Create Empty Room)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"{{emptyRoomId}}\",\n  \"name\": \"Vacant Lab\",\n  \"capacity\": 40\n}"
+        },
+        "url": "{{baseUrl}}/rooms"
+      }
+    },
+    {
+      "name": "Rooms - DELETE /rooms/{emptyRoomId} (Expected 204)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/rooms/{{emptyRoomId}}"
+      }
+    },
+    {
+      "name": "Sensors - POST /sensors (Create Sensor)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"{{sensorId}}\",\n  \"type\": \"CO2\",\n  \"status\": \"ACTIVE\",\n  \"currentValue\": 415.2,\n  \"roomId\": \"{{roomId}}\"\n}"
+        },
+        "url": "{{baseUrl}}/sensors"
+      }
+    },
+    {
+      "name": "Sensors - GET /sensors (List Sensors)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/sensors"
+      }
+    },
+    {
+      "name": "Sensors - GET /sensors?type=CO2 (Filter by Type)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/sensors?type=CO2"
+      }
+    },
+    {
+      "name": "Readings - POST /sensors/{sensorId}/readings",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"value\": 430.8\n}"
+        },
+        "url": "{{baseUrl}}/sensors/{{sensorId}}/readings"
+      }
+    },
+    {
+      "name": "Readings - GET /sensors/{sensorId}/readings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/sensors/{{sensorId}}/readings"
+      }
+    },
+    {
+      "name": "Rooms - DELETE /rooms/{roomId} (Expected 409 when room has sensor)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/rooms/{{roomId}}"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/smartcampus-api/api/v1"
+    },
+    {
+      "key": "roomId",
+      "value": "LIB-301"
+    },
+    {
+      "key": "emptyRoomId",
+      "value": "LAB-100"
+    },
+    {
+      "key": "sensorId",
+      "value": "CO2-001"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Smart Campus Sensor & Room Management API
 
+This project is intended to be hosted in a **public GitHub repository** and this `README.md` includes the required API overview, build/run instructions, sample `curl` commands, video.
+
 JAX-RS REST API for managing campus rooms, sensors, and sensor readings using in-memory collections (`ConcurrentHashMap`, `ArrayList`-style lists).  
 Base path: `/api/v1`
 
@@ -21,19 +23,29 @@ Base path: `/api/v1`
   - Request/response logging via JAX-RS filters
   - Custom exception mappers + global catch-all mapper to avoid leaking stack traces
 
-## Build and Run
 
-This project is packaged as a WAR and intended for a Jakarta EE 8-compatible servlet container/application server.
+## Build and Launch Server
 
-1. Build:
+1. Install prerequisites:
+   - Java 8 or newer
+   - Maven 3.8+
+   - A Jakarta EE 8 compatible server (for example Payara, GlassFish, TomEE)
+2. Clone the repository:
+   ```bash
+   git clone https://github.com/silvabanu/smartcampus-api.git
+   cd smartcampus-api
+   ```
+3. Build the project:
    ```bash
    mvn clean package
    ```
-2. Deploy `target/smartcampus-api-1.0-SNAPSHOT.war` to your server (for example, Payara/GlassFish/TomEE).
-3. Use the API at:
-   ```text
-   http://localhost:8080/smartcampus-api/api/v1
-   ```
+4. Confirm WAR output exists:
+   - `target/smartcampus-api.war`
+5. Deploy `target/smartcampus-api.war` to your application server.
+6. Start the server/domain.
+7. Open the API base endpoint:
+   - `http://localhost:8080/smartcampus-api/api/v1`
+
 
 ## Sample curl Commands
 
@@ -76,7 +88,7 @@ This project is packaged as a WAR and intended for a Jakarta EE 8-compatible ser
    curl -s -X DELETE http://localhost:8080/smartcampus-api/api/v1/rooms/LIB-301
    ```
 
-## Report Answers (Conceptual Questions)
+## Report Questions and Answers
 
 ### Part 1
 
@@ -118,10 +130,6 @@ Stack traces leak implementation details such as package/class names, library ve
 **Q: Why use JAX-RS filters for logging instead of manual logging in each resource?**  
 Filters implement cross-cutting concerns centrally and consistently. They reduce duplication, prevent missed logging in new endpoints, keep business methods clean, and enforce uniform request/response observability at a single integration point.
 
-## Video Demonstration Checklist
+## Video Demonstration Link
 
-- Show discovery endpoint and core CRUD flows.
-- Demonstrate sensor filtering by query parameter.
-- Demonstrate nested reading operations and `currentValue` update.
-- Demonstrate each required error scenario (409, 422, 403, plus generic safety behavior).
-- Keep camera/microphone active and narration clear.
+https://drive.google.com/file/d/1Qp3_1BUFuCg3mrQ_sCQSJpPu7HV_fnwP/view?usp=sharing
